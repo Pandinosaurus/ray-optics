@@ -6,112 +6,57 @@ To report bugs, request new features, or share your ideas, feel free to open [is
 
 For direct contributions, see the following guidelines.
 
-## Contributing a tool
-
-1. Fork this repo and clone locally. If you have forked previously, sync to get the latest changes.
-
-2. Add a script <code><var>TOOL_ID</var>.js</code> in a subfolder of `simulator/js/objs`, where <code><var>TOOL_ID</var></code> is the id of the new tool, and write the code there. 
-
-3. Add a script tag in `simulator/index.html` for the new tool.
-
-4. Add the locale strings for the tool to `simulator/locales/en.js`:
-   - <code>toolname_<var>TOOL_ID</var></code>: the label on the object bar when the object is selected
-   - If the tool has some new parameters, add the strings for them.
-
-After the steps above, The new tool can be tested by opening `simulator/index.html` locally in your browser and executing <code>AddingObjType = '<var>TOOL_ID</var>'</code> with the developer tool to choose the tool, without being on the toolbar.
-
-5. _(optional)_ Add the corresponding lines in `simulator/index.html`.
-
-6. _(optional)_ Add the locale strings for the tool to `simulator/locales/en.js`:
-   - <code>tool_<var>TOOL_ID</var></code>: the title on the toolbar (or dropdown item)
-   - <code>tool_<var>TOOL_ID</var>_popover</code>: the text in the popover when the user hover the item on the toolbar
-
-7. _(optional)_ Run `node sync.js` in `simulator/locales/` to sync to other locales. Translate the added strings to other locales if you speak that language (follow the translation guidelines).
-
-8. _(optional)_ Add an exported SVG image (use File -> Export PNG/SVG) of your tools in <code>img/<var>TOOL_ID</var>.svg</code>.
-
-9. Commit your changes (several times maybe), push to your fork, and create a pull request.
-
 ## Contributing items to the Gallery
+
+You can submit your work to the Gallery. The scene should satisfy the following requirements:
+- The "Simulate Colors" option should only be used when necessary (e.g. to represent the actual wavelength-dependent optics or to distinguish different sources by colors).
+- The "Correct Brightness" option and glasses with relative refractive indices below 1 are not currently supported by the thumbnail/preview image.
+- All natural language texts in the scene should be either in English or in Chinese when submitting by email.
+- Avoid programmatically-generated large arrays of objects if possible (try using the "Module" feature instead).
+- Avoid using rays in non-optical ways (e.g. purely geometrical measurements, backward ray tracing) if possible.
+- To keep the style consistent, please use the default theme and font unless beneficial for the purpose of the simulation.
 
 **Method 1: By e-mail**
 
-1. Save you work as a `.json` file using the "Save" button. If your work contains a background image (which can be loaded with "Open"), it should be in a separate file.
-2. Send the files to ray-optics@phydemo.app. Include the title of your work, a description of your work (to show on the webpage), and your name to appear on the [list of contributors](https://phydemo.app/ray-optics/about).
+1. Save you work as a `.json` file using the "Save" button (or use "Copy Shareable Link"). If your work contains a background image (which can be loaded with "Open"), it should be in a separate file.
+2. Send the files (or link) to ray-optics@phydemo.app with the subject "Gallery submission: [title of your work]". In the body of the email, include a description of your work (to show on the webpage), and your name to appear on the [list of contributors](https://phydemo.app/ray-optics/about).
 
 **Method 2: Via GitHub** (preferred if you use GitHub)
 
 1. Fork this repo and clone locally. If you have forked previously, sync to get the latest changes.
-
-2. Add the JSON file in `gallery/` (follow the naming convention there).
-
-3. If the work contains a background image, put it also in `gallery/`, and edit the `.json` file to include <code>backgroundImage": "<var>IMAGE_FILENAME</var>"</code>.
-
-4. _(optional)_ Take a PNG screenshot with width 1140 (with the built-in File -> Export where you can set the width). It should contain all the tools, texts, and the relavent part of the simulation. Save it in `gallery/`, with the file name being the JSON file name with `.json` replaced by `.png`.
-
-5. _(optional)_ Take a 250x250 PNG screenshot for the thumbnail. It does not need to contains everything in the simulation, but should contain at least some essential part. Save it in `gallery/`, with the file name being the JSON file name with `.json` replaced by `-thumbnail.png`.
-
-5. _(optional)_ Edit `gallery/data.json` with a text editor. This file contains the structure of the gallery and the metadata for the items. The ID of an item is the JSON file name without the `.json`. If you replace an existing items, you can change the title but not the ID, and you should append you name in the list of contributors.
-
-6. _(optional)_ Run `node generate-gallery.js` in `gallery/`.
-
-7. Commit your changes, push to your fork, and create a pull request.
+2. Run `npm install` (you don't need to run build).
+3. Run `npm run add-to-gallery` and follow the instructions there.
+4. Commit your changes, push to your fork, and create a pull request.
 
 ## Contributing translations
 
-You can submit a complete or partial translation for a new language, make progress to an incomplete language, or improve translation for an existing language. You don't need to understand the code to do the translation. Currently, the translation of the Gallery can only be done manually.
-1. Download the target locale file:
-   - German: https://raw.githubusercontent.com/ricktu288/ray-optics/master/simulator/locales/de.js
-   - Spanish: https://raw.githubusercontent.com/ricktu288/ray-optics/master/simulator/locales/es.js
-   - French: https://raw.githubusercontent.com/ricktu288/ray-optics/master/simulator/locales/fr.js
-   - Japanese: https://raw.githubusercontent.com/ricktu288/ray-optics/master/simulator/locales/ja.js
-   - Korean: https://raw.githubusercontent.com/ricktu288/ray-optics/master/simulator/locales/ko.js
-   - Dutch: https://raw.githubusercontent.com/ricktu288/ray-optics/master/simulator/locales/nl.js
-   - Polish: https://raw.githubusercontent.com/ricktu288/ray-optics/master/simulator/locales/pl.js
-   - Brazilian Portuguese: https://raw.githubusercontent.com/ricktu288/ray-optics/master/simulator/locales/pt_BR.js
-   - Russian: https://raw.githubusercontent.com/ricktu288/ray-optics/master/simulator/locales/ru.js
-   - Sinhala: https://raw.githubusercontent.com/ricktu288/ray-optics/master/simulator/locales/si.js
-   - Traditional Chinese: https://raw.githubusercontent.com/ricktu288/ray-optics/master/simulator/locales/zh_TW.js
-   - Simplified Chinese: https://raw.githubusercontent.com/ricktu288/ray-optics/master/simulator/locales/zh_CN.js
-   - Template for a new language:  https://raw.githubusercontent.com/ricktu288/ray-optics/master/simulator/locales/template.js
-   
-   _NOTE: If it is indicated above (or in some PR) that some update for a language has been submitted but not yet merged, please wait until it is merged to avoid repeated translation._
-2. Translate the phrase/sentence in the quotation after `"message":` to the target language. If you encounter `<` and `>`, leave the text between them untouched; `&amp;` means the "&" symbol; `\"` means a quote, and `&nbsp;` means an extra space.  If the translation of an item is completed, remove the line `"incomplete": true,`. For example,
-```javascript
-  "welcome": {
-    "incomplete": true,
-    "message": "<span style=\"font-size:22pt\">Welcome to Ray Optics Simulation</span><br>To add an optical component, select a tool and click the blank space.<br>To load an example, please <a href=\"https://phydemo.app/ray-optics/gallery/\">go to the Gallery page</a>."
-  },
-```
-becomes (for Traditional Chinese)
-```javascript
-  "welcome": {
-    "message": "<span style=\"font-size:22pt\">歡迎使用「線光學模擬」</span><br>若要加入光學元件，請選擇工具並點擊空白處。<br>若要載入範例，<a href=\"https://phydemo.app/ray-optics/gallery/\">請前往「作品集」頁面</a>。"
-  },
+This project uses Weblate for translation. Please visit https://hosted.weblate.org/engage/ray-optics-simulation/ to translate.
 
-```
-After that, you can submit the translated file with either method below:
+[![Translation status](https://hosted.weblate.org/widget/ray-optics-simulation/287x66-grey.png)](https://hosted.weblate.org/engage/ray-optics-simulation/)
+
+If you already started the translation using the old json format before Dec 11, 2024, you can still submit that to ray-optics@phydemo.app (which will be converted to the new format by some automatic script). But please do not start a new translation with the old format.
+
+## Contributing modules
+
+Contributed modules will be shown in the list in Tools -> Others -> Import Modules.
 
 **Method 1: By e-mail**
 
-3. Send the resulting file to ray-optics@phydemo.app (you may need to replace the `.js` with `.txt` in the filename to make it attachable). Include the name of the language and your name to appear on the [list of contributors](https://phydemo.app/ray-optics/about).
+1. Save you scene with the new module as a `.json` file using the "Save" button.
+2. Send the files to ray-optics@phydemo.app with the subject "Module submission: [title of your module]". In the body of the email, include a description of your module, and your name to appear on the [list of contributors](https://phydemo.app/ray-optics/about).
 
 **Method 2: Via GitHub** (preferred if you use GitHub)
 
-3. Fork this repo and clone locally. If you have forked previously, sync to get the latest changes.
-
-4. Save/replace the file as <code><var>LOCALE_ID</var>.js</code> in `simulator/locales/`.
-5. _(optional)_ If it is a new language, modify the locale list in `simulator/locales/sync.js`.
-6. _(optional)_ Add/modify the translation of the welcome message in `simulator/index.html`.
-7. _(optional)_ Add/modify <code><var>LOCALE_ID</var>/index.html</code> in the repo root (if not exist, copy from `index.html` and replace all `img/` with `../img/`).
-8. _(optional)_ Add the corresponding lines and the `<ul class="dropdown-menu"` in `simulator/index.html`
-9. _(optional)_ Add/modify the language-related metadata and the language dropdowns of the homepages in all locales for the new locale.
-
-10. Commit your changes, push to your fork, and create a pull request.
+1. Fork this repo and clone locally. If you have forked previously, sync to get the latest changes.
+2. Run `npm install` (you don't need to run build).
+3. Run `npm run add-to-modules` and follow the instructions there.
+4. Commit your changes, push to your fork, and create a pull request.
 
 ## More contributions
 
-Such as adding a new parameter to a tool, adding a new mode of viewing light, etc. For significant changes such as a new framework or a new toolbar design, please open a new discussion first.
+Such as creating a new tool, adding a new parameter to a tool, adding a new mode of viewing light, etc. For significant changes such as a new framework or a new toolbar design, please open a new discussion first. Also see the [roadmap](https://github.com/ricktu288/ray-optics/blob/master/ROADMAP.md) for the planned features to avoid duplicate work or conflicts.
+
+See the [installation instructions](https://github.com/ricktu288/ray-optics/blob/master/README.md#installation) for how to set up the project locally.
 
 ### Requirements on compatibility
 
